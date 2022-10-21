@@ -26,7 +26,6 @@ export default () => {
             setTitle( list[route.params.key].title );
             setBody( list[route.params.key].body );
         }
-        setTitle(list[route.params.key].title)
     }, []);
 
     return (
