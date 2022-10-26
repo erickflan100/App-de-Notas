@@ -18,3 +18,33 @@ export const BodyInput = styled.TextInput`
     font-size: 15px;
     color: #FFF;
 `;
+
+export const SaveButton = styled.TouchableHighlight`
+    margin-right: 15px;
+`;
+
+export const SaveButtonImage = styled.Image`
+    width: 25px;
+    height: 25px;
+`;
+
+export const CloseButton = styled.TouchableHighlight`
+    margin-left: 15px;
+`;
+
+export const CloseButtonImage = styled.Image`
+    width: 15px;
+    height: 15px;
+`;
+
+export const DeleteButton = styled.TouchableHighlight`
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    backgroundColor: #870000;
+`;
+
+export const DeleteButtonText = styled.Text`
+    fontSize: 20px;
+    color: #FFF
+`;

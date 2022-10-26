@@ -17,10 +17,10 @@ export default () => {
     const navigation = useNavigation();
 
     const handleNotePress = (index) => {
-        navigation.navigate('EditNote'), {
+        navigation.navigate('EditNote', {
             key: index
-        }
-    };
+        });
+    }
 
     useLayoutEffect(() => {
         navigation.setOptions({

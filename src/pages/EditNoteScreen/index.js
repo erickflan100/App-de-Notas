@@ -5,7 +5,13 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import {
     Container,
     TitleInput,
-    BodyInput
+    BodyInput,
+    SaveButton,
+    SaveButtonImage,
+    CloseButton,
+    CloseButtonImage,
+    DeleteButton,
+    DeleteButtonText
 } from './styles';
 
 export default () => {
@@ -28,6 +34,59 @@ export default () => {
         }
     }, []);
 
+    useLayoutEffect(() => {
+        navigation.setOptions({
+            title: status == 'new' ? 'Nova Anotação' : 'Editar Anotação',
+            headerLeft: () => (
+                <CloseButton underlayColor="transparent" onPress={handleCloseButton}>
+                    <CloseButtonImage source={require('../../assets/images/close.png')} />
+                </CloseButton>
+            ),
+            headerRight: () => (
+                <SaveButton underlayColor="transparent" onPress={handleSaveButton}>
+                    <SaveButtonImage source={require('../../assets/images/save.png')} />
+                </SaveButton>
+            )
+        })
+    }, [status, title, body])
+
+    const handleSaveButton = () => {
+        if(title != '' && body != ''){
+            if(status == 'edit'){
+                dispatch({
+                    type: 'EDIT_NOTE',
+                    payload:{
+                        key: route.params.key,
+                        title,
+                        body
+                    }
+                })
+            }else{
+                dispatch({
+                    type: 'ADD_NOTE',
+                    payload: {title, body}
+                })
+            }
+            navigation.goBack();
+        }else{
+            alert('Preencha todos os campos!')
+        }
+    }
+
+    const handleCloseButton = () => {
+        navigation.goBack();
+    }
+
+    const handleDeleteButton = () => {
+        dispatch({
+            type: 'DEL_NOTE',
+            payload: {
+                key: route.params.key
+            }
+        })
+        navigation.goBack();
+    }
+
     return (
         <Container>
             <TitleInput 
@@ -45,6 +104,11 @@ export default () => {
                 multiline={true}
                 textAlignVertical="top"
             />
+            {status == 'edit' &&
+                <DeleteButton underlayColor="#FF0000" onPress={handleDeleteButton}>
+                    <DeleteButtonText>Excluir Anotação</DeleteButtonText>
+                </DeleteButton>
+            }
         </Container>
     );
 }
